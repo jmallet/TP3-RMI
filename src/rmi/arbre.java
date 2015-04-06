@@ -6,7 +6,11 @@ import java.rmi.NotBoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * class which allow to create tree
+ * @author julien
+ *
+ */
 public class arbre {
 
 	public static void main(String[] args) throws NotBoundException {

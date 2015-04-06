@@ -9,7 +9,11 @@ import java.util.List;
 
 import rmi.SiteImpl;
 import rmi.SiteItf;
-
+/**
+ * class which initialize a registry RMI
+ * @author julien and zairi
+ *
+ */
 public class server {
 
 	public static void main(String[] args) {
