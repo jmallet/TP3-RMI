@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  * class which allow to create tree
- * @author julien and Zairi
+ * @author julien and ziad
  *
  */
 public class arbre {

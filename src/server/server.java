@@ -6,12 +6,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import rmi.SiteImpl;
+import rmi.SiteImplThread;
 import rmi.SiteItf;
 /**
  * class which initialize a registry RMI
- * @author julien and zairi
+ * @author julien and ziad
  *
  */
 public class server {
@@ -24,6 +26,22 @@ public class server {
 		} catch (RemoteException e) {
 			System.out.println("Registry already exists");
 		}
+		Scanner sc = new Scanner(System.in); 
+		int choix = sc.nextInt();
+		if (choix == 1) {
+		try {
+			for (int i=0; i<6; i++) {
+				node.add(new SiteImplThread(i));
+				System.out.println(node.get(i).getId() + "aaa");
+				Naming.rebind("//127.0.0.1/" + node.get(i).getId(), node.get(i));
+				
+				
+			}		
+			System.out.println("The server is ready (thread)");
+		} catch (IOException e) {
+		}
+	}
+	else {
 		try {
 			for (int i=0; i<6; i++) {
 				node.add(new SiteImpl(i));
@@ -35,5 +53,6 @@ public class server {
 			System.out.println("The server is ready");
 		} catch (IOException e) {
 		}
+	}
 	}
 }

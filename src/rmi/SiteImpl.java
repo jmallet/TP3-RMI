@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * class which allow to create a Site
- * @author julien and zairi
+ * @author julien and ziad
  *
  */
 public  class SiteImpl extends UnicastRemoteObject implements SiteItf {
