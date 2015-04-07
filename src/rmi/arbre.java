@@ -5,10 +5,11 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * class which allow to create tree
- * @author julien
+ * @author julien and Zairi
  *
  */
 public class arbre {
@@ -16,10 +17,13 @@ public class arbre {
 	public static void main(String[] args) throws NotBoundException {
 
 		final List<SiteItf> tree = new ArrayList<SiteItf>();
-
+		
 		try {
+			
 			for(int i=0; i<6; i++) {	
-				tree.add((SiteItf) Naming.lookup("127.0.0.1/"+i));
+				
+				tree.add((SiteItf) Naming.lookup("//127.0.0.1/"+i));
+				
 			}
 			
 			tree.get(0).addSon(tree.get(1));
@@ -28,8 +32,25 @@ public class arbre {
 			tree.get(1).addSon(tree.get(3));
 			tree.get(4).addSon(tree.get(5));
 			
+			// le tableaux:
+			System.out.println("			0			");
+			System.out.println("		/		");
+			System.out.println("	1				2	");
+			System.out.println("   / ");
+			System.out.println("4	  	3			");
+			System.out.println("|");
+			System.out.println("5");
+						
+			
+			
+			// demande à l'utilisateur de choisir à partir de quel fils il veut diffuser le message
+			Scanner saisieUtilisateur = new Scanner(System.in); 
+			int choix = saisieUtilisateur.nextInt(); 
+			
+			
+			
 			//System.out.println("First");
-			System.out.println(tree.get(0).diffuseMessage("My message!"));
+			System.out.println(tree.get(choix).diffuseMessage("My message!"));
 			
 		/*	System.out.println("Second");
 			SiteItf second = (SiteItf) Naming.lookup("127.0.0.1/1");
