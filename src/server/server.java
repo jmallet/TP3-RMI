@@ -47,8 +47,6 @@ public class server {
 				node.add(new SiteImpl(i));
 				System.out.println(node.get(i).getId() + "aaa");
 				Naming.rebind("//127.0.0.1/" + node.get(i).getId(), node.get(i));
-				
-				
 			}		
 			System.out.println("The server is ready");
 		} catch (IOException e) {
