@@ -5,22 +5,22 @@ Julien Mallet & Zairi Ziad
 
 Introduction
 ---------------------------
-This application allows you to transfer data in the RMI to a set of objects organized according to a tree topology and thereafter as a graph.
-Each node of the tree or graph s execute in a different virtual machine and spreads the data has his son .
+This application allows the user to transfer data using RMI according to a tree topology and thereafter as a graph.
+Each node of the tree or graph spreads the data to his son .
 
 
-to start the application :
+To start the application :
 
-in scripts do :
+In the directory scripts :
 
--------------- Arbre simple ------------------
+-------------- Simple tree ------------------
 to start the server :
 ./serveurArbre.sh
 
 in a other terminal:
 ./arbre.sh
 
--------------- Arbre thread -------------------
+-------------- tree with thread -------------------
 to start the server :
 ./serveurThread.sh
 
@@ -39,9 +39,9 @@ in a other terminal::
 design
 ---------------------------
 - Package rmi
-	-Arbre : class which allow to create tree
-	-ArbreThread : class which allow to create ArbreThread
-	-Graphe : class which allow to create graphe
+	-Arbre : class which allow to create a tree
+	-ArbreThread : class which allow to spreads datas using threads
+	-Graphe : class which allow to create a graphe
 	-SiteImpl : class which allow to create a Site
 	-SiteImplGraphe : class which allow to create a Site - graphe mode
 	-SiteImplThread : class which allow to create a Site and diffuse messages with a thread
@@ -56,47 +56,32 @@ design
 
 
 
-Exception
+Exceptions
 ----------------------------------------
 
+Examples of exceptions in this application :
 
-Server: 
-
-	else if (choix == 2){
-		try {
-			for (int i=0; i<6; i++) {
-				node.add(new SiteImplGraphe(i));
-				System.out.println(node.get(i).getId() + "aaa");
-				Naming.rebind("//127.0.0.1/" + node.get(i).getId(), node.get(i));
-			}		
-			System.out.println("The server is ready (Graphe)");
-		} catch (IOException e) {
-		}
+	try {
+		...
+		...		
+	} catch (IOException e) {
 	}
 
+	try {
+		thread.join();
+	} catch (InterruptedException e) {
+	}
 
+	try {
+		LocateRegistry.createRegistry(1099);
+	} catch (RemoteException e) {
+		System.out.println("Registry already exists");
+	}
 
-SiteImplThread :
+	public void myFunction() throws RemoteException {
+	...
+	}
 
-		for (Thread thread : lThread) {
-				try {
-					thread.join();
-				} catch (InterruptedException e) {
-				}
-		}
-
-
-
-
-
-
-Server:
-
-		try {
-			LocateRegistry.createRegistry(1099);
-		} catch (RemoteException e) {
-			System.out.println("Registry already exists");
-		}
 
 
 
@@ -106,14 +91,20 @@ Code Samples
 ---------------------------
 
 
-SiteImpl:
 
-public String diffuseMessage(final String message) throws RemoteException {
+This method allows to spreads a message into the tree :
+
+public String diffuseMessage(String message) throws RemoteException {
+		//If the current node has sons
 		if (!sons.isEmpty()) {
+		//The variable that will contain all the messages
 		StringBuilder res = new StringBuilder();
+		//The id of the node and the message are added to the variable
 		res.append(getId() + ":" + message + "\n");
+		//For each son of the node
 		for (final SiteItf son : sons) {
 			try {
+				//Add to the variable the messages that will be received in the sub-tree
 				res.append(son.diffuseMessage(message));
 			} catch (final RemoteException e) {
 				return "";
@@ -121,26 +112,35 @@ public String diffuseMessage(final String message) throws RemoteException {
 		}
 		return res.toString();
 		}
+		//If the node don't have sons, just return the message+id
 		else return getId() + ":" +message+"\n";
 	}
 
 
+This method allows to spreads a message into the tree with threads:
 
-SiteImplThread:
-
-	public String diffuseMessage(final String message) throws RemoteException {
+	public String diffuseMessage(String message) throws RemoteException {
+		//If the current node has sons
 		if (!sons.isEmpty()) {
+		//The variable that will contain all the messages
 		StringBuilder res = new StringBuilder();
+		//The id of the node and the message are added to the variable
 		res.append(getId() + ":" + message + " Thread" + "\n");
+		//The list of threads that we will use
 		final List<Thread> lThread = new ArrayList<Thread>();
+		//For each son of the node
 		for (SiteItf son : sons) {
+			//Initialize a type that will exectute res.append(son.diffuseMessage(mess))
 			ArbreThread aT = new ArbreThread(son, message, res);
+			//Add and start a new thread
 			Thread thread = new Thread(aT);
 			lThread.add(thread);
 			thread.start();
 		}
+		//For each thread
 		for (Thread thread : lThread) {
 				try {
+					//Wait until the current thread finish
 					thread.join();
 				} catch (InterruptedException e) {
 				}
@@ -148,57 +148,42 @@ SiteImplThread:
 		
 		return res.toString();
 		}
+		//If the node don't have sons
 		else return getId() + ":" +message+ " Thread" + "\n";
 	}
 
-SiteImplGraphe:
+Method that allows to add a son to a node  :
 
-public String diffuseMessage(final String message) throws RemoteException {
-		if (!already) {
-			already = true;
-		} else {
-			already = false;
-			return "";
-		}
-		StringBuilder res = new StringBuilder();		
-		res.append(getId() + ":" + message + "Graphe" + "\n");
-		List<Thread> threads = new ArrayList<Thread>();
-		for (SiteItf node : nodes) {
-			ArbreThread aT = new ArbreThread(node, message, res);
-			Thread thread = new Thread(aT);
-			threads.add(thread);
-			thread.start();
-		}
-		for (Thread tr : threads) {
-			try {
-				tr.join();
-			} catch (InterruptedException e) {
-			}
-		}
-		already = false;
-		return res.toString();
-	}
-
-
-SiteImpl:
-
-	public void addSon(final SiteItf son) throws RemoteException {
+	public void addSon(SiteItf son) throws RemoteException {
+		//If not null
 		if (son != null) {
-			
+		//If the son don't have a father already
 		if (!son.hasFather()) {
+			//Add the son to the list of sons of the node
 			sons.add(son);
+			//Set the father of the son
 			son.setFather(this);
 		}
 		}
 	}
 
+Method that allows to add a son to a node of a graph : 
 
-
-
-	public void setFather(SiteItf father) throws RemoteException {
-		if (father != null) {
-			this.father = father;
+public void addSon(final SiteItf node) throws RemoteException {
+		//Just check if the node is not null. A node can have differents fathers
+		if (node != null) {
+			nodes.add(node);
 		}
 	}
+
+Method in the class ArbreThread, to spreads the message to the sons of the site :
+public void run() {
+		try {
+			//spreads the message to the sons of the site and keep all the messages into res
+			res.append(site.diffuseMessage(message));
+		} catch (IOException e) {
+		}
+	}
+
 
 

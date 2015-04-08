@@ -1,4 +1,4 @@
-RMI - Date transfert
+RMI - Data transfert
 Julien Mallet & Zairi Ziad
 09/04/2015
 
