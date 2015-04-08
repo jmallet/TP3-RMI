@@ -80,7 +80,7 @@ public  class SiteImplThread extends UnicastRemoteObject implements SiteItf {
 		res.append(getId() + ":" + message + " Thread" + "\n");
 		final List<Thread> lThread = new ArrayList<Thread>();
 		for (SiteItf son : sons) {
-			arbreThread aT = new arbreThread(son, message, res);
+			ArbreThread aT = new ArbreThread(son, message, res);
 			Thread thread = new Thread(aT);
 			lThread.add(thread);
 			thread.start();

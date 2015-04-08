@@ -70,7 +70,7 @@ public  class SiteImplGraphe extends UnicastRemoteObject implements SiteItf {
 		res.append(getId() + ":" + message + "Graphe" + "\n");
 		List<Thread> threads = new ArrayList<Thread>();
 		for (SiteItf node : nodes) {
-			arbreThread aT = new arbreThread(node, message, res);
+			ArbreThread aT = new ArbreThread(node, message, res);
 			Thread thread = new Thread(aT);
 			threads.add(thread);
 			thread.start();

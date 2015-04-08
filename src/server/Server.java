@@ -17,7 +17,7 @@ import rmi.SiteItf;
  * @author julien and ziad
  *
  */
-public class server {
+public class Server {
 
 	public static void main(String[] args) {
 

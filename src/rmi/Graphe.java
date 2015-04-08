@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @author julien
  *
  */
-public class graphe {
+public class Graphe {
 
 	public static void main(String[] args) {
 
@@ -45,9 +45,9 @@ public class graphe {
 						
 			
 			
-			Scanner saisieUtilisateur = new Scanner(System.in); 
-			int choix = saisieUtilisateur.nextInt(); 
-			System.out.println(node.get(choix).diffuseMessage("My message!"));
+			Scanner enterUser = new Scanner(System.in); 
+			int choice = enterUser.nextInt(); 
+			System.out.println(node.get(choice).diffuseMessage("My message!"));
 		} catch (final IOException e) {
 		}
 

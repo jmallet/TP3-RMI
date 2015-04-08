@@ -10,10 +10,30 @@ Chaque noeud de l'arbre ou du graphe s execute dans une machine virtuelle differ
 
 
 Pour executer l application :
--
--
--
--
+
+dans scripts faire :
+
+-------------- Arbre simple ------------------
+Pour lancer le serveur :
+./serveurArbre.sh
+
+Dans un autre terminal:
+./arbre.sh
+
+-------------- Arbre thread -------------------
+Pour lancer le serveur :
+./serveurThread.sh
+
+Dans un autre terminal:
+./arbre.sh
+
+--------------- Graphe -------------------
+Pour lancer le serveur :
+./serveurGraphe.sh
+
+Dans un autre terminal:
+./graphe.sh
+
 
 
 Architecture
@@ -21,6 +41,8 @@ Architecture
 - Package rmi
 
 - Package server
+
+- Package test
 
 
 Code Samples

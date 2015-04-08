@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @author julien and ziad
  *
  */
-public class arbre {
+public class Arbre {
 
 	public static void main(String[] args) throws NotBoundException {
 
@@ -44,13 +44,13 @@ public class arbre {
 			
 			
 			// demande à l'utilisateur de choisir à partir de quel fils il veut diffuser le message
-			Scanner saisieUtilisateur = new Scanner(System.in); 
-			int choix = saisieUtilisateur.nextInt(); 
+			Scanner enterUser = new Scanner(System.in); 
+			int choice = enterUser.nextInt(); 
 			
 			
 			
 			//System.out.println("First");
-			System.out.println(tree.get(choix).diffuseMessage("My message!"));
+			System.out.println(tree.get(choice).diffuseMessage("My message!"));
 			
 		/*	System.out.println("Second");
 			SiteItf second = (SiteItf) Naming.lookup("127.0.0.1/1");

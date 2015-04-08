@@ -10,7 +10,7 @@ import rmi.SiteImpl;
 import rmi.SiteImplGraphe;
 import rmi.SiteImplThread;
 import rmi.SiteItf;
-import rmi.arbreThread;
+import rmi.ArbreThread;
 
 /**
  * This is class Test
@@ -53,7 +53,7 @@ public class rmi {
 	public void arbreThreadTest() throws RemoteException {
 		SiteImpl si = new SiteImpl(1);
 		StringBuilder res = new StringBuilder();
-		arbreThread at = new arbreThread (si,"message test",res);
+		ArbreThread at = new ArbreThread (si,"message test",res);
 		at.run();
 		assertEquals("1:message test\n",res.toString());
 	}
