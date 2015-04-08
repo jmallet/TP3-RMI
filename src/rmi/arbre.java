@@ -32,7 +32,7 @@ public class arbre {
 			tree.get(1).addSon(tree.get(3));
 			tree.get(4).addSon(tree.get(5));
 			
-			// le tableaux:
+			// l'arbre:
 			System.out.println("			0			");
 			System.out.println("		/		");
 			System.out.println("	1				2	");

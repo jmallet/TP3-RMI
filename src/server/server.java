@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import rmi.SiteImpl;
+import rmi.SiteImplGraphe;
 import rmi.SiteImplThread;
 import rmi.SiteItf;
 /**
@@ -41,6 +42,18 @@ public class server {
 		} catch (IOException e) {
 		}
 	}
+	else if (choix == 2){
+		try {
+			for (int i=0; i<6; i++) {
+				node.add(new SiteImplGraphe(i));
+				System.out.println(node.get(i).getId() + "aaa");
+				Naming.rebind("//127.0.0.1/" + node.get(i).getId(), node.get(i));
+			}		
+			System.out.println("The server is ready (Graphe)");
+		} catch (IOException e) {
+		}
+	}
+		
 	else {
 		try {
 			for (int i=0; i<6; i++) {
