@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**class which allow to create graphe
+ * 
+ * @author julien
+ *
+ */
 public class graphe {
 
 	public static void main(String[] args) {

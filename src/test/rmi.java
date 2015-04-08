@@ -12,6 +12,11 @@ import rmi.SiteImplThread;
 import rmi.SiteItf;
 import rmi.arbreThread;
 
+/**
+ * This is class Test
+ * @author julien
+ *
+ */
 public class rmi {
 
 	@Test

@@ -2,6 +2,11 @@ package rmi;
 
 import java.io.IOException;
 
+/**
+ * class which allow to create tree Tread
+ * @author julien
+ *
+ */
 public class arbreThread implements Runnable{
 
 	private String message;
