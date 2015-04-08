@@ -104,6 +104,8 @@ Server:
 
 Code Samples
 ---------------------------
+
+
 SiteImpl:
 
 public String diffuseMessage(final String message) throws RemoteException {
